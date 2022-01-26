@@ -1,0 +1,25 @@
+    double example1 = 20000;
+    float example2 = 30.125;
+    int example3 = 20;
+    char example4 = 'z';
+    unsigned int example5 = -5;
+
+    example3 = (float)example2;
+    std::cout << "Float into a integer : " << example3;
+    //Outputs 30
+
+    example1 = (float)example2;
+    std::cout << "Float into a double : " << example1;
+    //Outputs 30.125
+
+    example1 = (int)example3;
+    std::cout << "Int into a double : " << example1;
+    //Outputs 20
+
+    example3 = (char)example4;
+    std::cout << "Character into an Int : " << example3;
+    //Outputs 122
+
+    example4 = (int)example3;
+    std::cout << "Integer into a char : " << example4;
+    //Outputs a emoticon sad face
