@@ -1,0 +1,17 @@
+int numberOfGuesses = 0;
+    int randomNumber = (rand() % 100) + 1;
+    int userGuess = 0;
+    
+    while (userGuess != randomNumber) {
+        std::cout << "Please guess a number : " << "\n";
+        std::cin >> userGuess;
+        numberOfGuesses++;
+        if (userGuess < randomNumber) {
+            std::cout << "You guessed a lower number" << "\n";
+        }
+        else {
+            std::cout << "You guessed a higher number" << "\n";
+        }
+           std::cout << "Good guess!";
+           std::cout << "That only took you " << numberOfGuesses << " guesses!";
+    }
