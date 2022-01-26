@@ -1,0 +1,56 @@
+int happyness = 10;
+
+void happyRating() {
+    if (happyness >= 1 && happyness <= 30) {
+        std::cout << "The alien looks at you with a sad face, you absolute monster \n";
+    }
+    else if (happyness > 30 && happyness <= 60) {
+        std::cout << "The alien looks fairly happy, if a little disapointed \n";
+    }
+    else if (happyness > 60) {
+        std::cout << "The alien looks at you lovingly, very well done \n";
+    }
+}
+
+void alientPet() {
+    happyRating();
+    int i = 0;
+    int selection = 0;
+    std::cout << "Please select an input for your alien : ";
+    std::cin >> selection;
+    while (std::cin) {
+        switch (selection) {
+        case 1:
+            std::cout << "Thank you for the food! \n"; 
+            happyness = happyness + 10;
+            alientPet();
+            break;
+        case 2:
+            std::cout << "*Purrs!* \n";
+            happyness = happyness + 10;
+            alientPet();
+            break;
+        case 3:
+            std::cout << "Ouch, why?! \n";
+            happyness = happyness - 10;
+            if (happyness <= 0) {
+                std::cout << "You're a meanie!!! \n";
+                exit(1);
+            }
+            alientPet();
+            break;
+        case 4:
+            std::cout << "Based as fuck! \n";
+            happyness = happyness + 50;
+            alientPet();
+            break;
+        default:
+            std::cout << "I didn't quite understand that? \n";
+            alientPet();
+        }
+    }
+}
+
+//Main body call
+
+    alientPet();
