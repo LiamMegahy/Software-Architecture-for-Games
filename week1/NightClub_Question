@@ -1,0 +1,49 @@
+int Age;
+    char Gender;
+    float Time;
+    float Price = 6.00;
+    bool open = true;
+    bool allowed = true;
+    std::cout << "Please input your age : ";
+    std::cin >> Age;
+    std::cout << "Please input your gender : ";
+    std::cin >> Gender;
+    std::cout << "Please input the current time : ";
+    std::cin >> Time;
+        if (Time >= 17.00 || Time <= 4.00) {
+            open = true;
+            if (Time > 17.00 && Time <= 19.00) {
+                Price = Price;
+            }
+            else {
+                Price = 9.00;
+            }
+            if (Age >= 18 && Age <= 25) {
+                Price = Price - 2.00;
+            }
+            if (Time >= 19.00 && Time <= 20.00) {
+                if (Gender == 'f' || Gender == 'F') {
+                    Price = Price / 2;
+                }
+            }
+            if (Time >= 00.00 && Time < 04.00) {
+                if (Gender == 'm' || Gender == 'M') {
+                    Price = Price;
+                }
+            }
+            if (Gender != 'f' && Gender != 'F' && Gender != 'm' && Gender != 'M') {
+                std::cout << "Gender enterted inncorectly";
+                allowed = false;
+            }
+            else if (Age >= 18) {
+                if (open == true && allowed == true) {
+                    std::cout << "Your Price is : " << Price;
+                }
+            }
+            else if (Age < 18) {
+                std::cout << "You are not old enough to enter, age required is 18";
+            }
+        }
+    else {
+        std::cout << "The club is closed, please come back later";
+    }
