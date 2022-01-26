@@ -1,0 +1,11 @@
+int limit = 5000;
+    int load = 0;
+    int package = 0;
+    
+    while (load <= limit) {
+        std::cout << "Enter the mass of the next package in KG : " << "\n";
+        std::cin >> package;
+        load = load + package;
+        std::cout << "Current load = " << load << "\n";
+    }
+    std::cout << "Package too heavy " << "\n";
