@@ -1,0 +1,16 @@
+void sumOfTwo(int one, int two, int three) {
+    int sum = 0;
+    if (one >= two && one >= three) {
+        if (two >= three) {
+            sum = one + two;
+        }
+        else if (three >= two) {
+            sum = one + three;
+        }
+    }
+    else {
+        sum = two + three; 
+    }
+    std::cout << "The sum of the two largest numbers is : " << sum;
+}
+    sumOfTwo(5, 6, 98);
