@@ -1,0 +1,16 @@
+const int ARRAYSIZE = 12;
+    int numbers[ARRAYSIZE] = { 5, 12, 88, 12, 55, 100, 98, 12, 12, 87, 90, 105 };
+    float total = 0;
+    for (int i = 0;i < ARRAYSIZE; i++) {
+        total += numbers[i];
+    }
+    total = total / 12;
+    std::cout << "The average for the list is : " << total << "\n";
+
+    float total2 = 0;
+
+    for (int num : numbers) {
+        total2 = total2 + num;
+    }
+    total2 = total2 / 12;
+    std::cout << "The average for this range based for loop is : " << total2 << "\n";
