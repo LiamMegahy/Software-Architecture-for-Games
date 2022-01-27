@@ -1,0 +1,36 @@
+void arrayTotal(double numbers[], int ARRAYSIZE, float total) {
+    for (int i = 0; i < ARRAYSIZE; i++) {
+        total += numbers[i];
+    }
+    std::cout << "Total for this array equals : " << total << "\n";
+}
+
+void arrayAverage(double numbers[], int ARRAYSIZE, float total) {
+    for (int i = 0; i < ARRAYSIZE; i++) {
+        total += numbers[i];
+    }
+    total = total / 12;
+    std::cout << "The average for this array equals : " << total << "\n";
+}
+
+void arrayLargestNum(double numbers[], int ARRAYSIZE, float total) {
+    float maximum = numbers[0];
+    for (int i = 1; i < ARRAYSIZE; i++) {
+        if (numbers[i] > maximum) {
+            maximum = numbers[i];
+        }
+    }
+    total = maximum;
+    std::cout << "The largest number in the array is : " << total << "\n";
+}
+
+int main()
+{
+    const int ARRAYSIZE = 38;
+    double numbers[ARRAYSIZE] = { 5, 12, 88, 12, 55, 100, 98, 12, 12, 87, 90, 105, 5, 12, 88, 12, 55, 100, 98, 12, 12, 87, 90, 105, 5, 12, 88, 12, 55, 100, 98, 12, 12, 87, 90, 105 };
+    float total = 0;
+
+    arrayTotal(numbers, ARRAYSIZE, total);
+    arrayAverage(numbers, ARRAYSIZE, total);
+    arrayLargestNum(numbers, ARRAYSIZE, total);
+}
