@@ -1,0 +1,97 @@
+#include <iostream>
+#include <string>
+
+class Character {
+private:
+	int strength;
+	int agility;
+	float HP;
+	std::string name;
+	std::string characterClass;
+	bool isAlive;
+	int damageTaken;
+	int enemyHealth = 100;
+	int selection{};
+public:
+	Character(int s, int a, float h, std::string n, std::string cc, bool live) {
+		strength = s;
+		agility = a;
+		HP = h;
+		name = n;
+		characterClass = cc;
+		isAlive = live;
+	};
+	void printOut() {
+		std::cout << "Strength : " << strength << "\n" << "Agilty : " << agility << "\n" << "Health Points : " << HP << "\n" << "Characters Name : " << name << "\n" << "Class : " << characterClass << "\n";
+		if (HP > 0) {
+			std::cout << "Is Alive" << "\n";
+		}
+		else {
+			std::cout << "Is Dead" << "\n";
+		}
+	}
+	void characterCreation() {
+		std::cout << "Please input your player name : " << "\n";
+		std::cin >> name;
+
+		std::cout << "Please input your player stength : " << "\n";
+		std::cin >> strength;
+
+		std::cout << "Please input your player agility : " << "\n";
+		std::cin >> agility;
+
+		std::cout << "Please input your player HP : " << "\n";
+		std::cin >> HP;
+
+		std::cout << "Please input your player class : " << "\n";
+		std::cin >> characterClass;
+
+		std::cout << "\n";
+	}
+	void enemyType() {
+		std::string enemyName = "bandit";
+		bool enemyAlive = true;
+		
+	}
+	void encounter() {
+		std::cout << "You are approached by a bandit, prepare to fight!" << "\n";
+		std::cout << "1 - Stab" << "\n" << "2 - Swing" << "\n" << "3 - Dodge" << "\n";
+		std::cin >> selection;
+		while (std::cin) {
+			switch (selection) {
+			case 1:
+				std::cout << "You thrust your sword at the enemy!" << "\n";
+				enemyHealth = enemyHealth - 10;
+				std::cout << "Enemy health is now : " << enemyHealth;
+				encounter();
+				break;
+			case 2 :
+				std::cout << "You deliver a mighty swing at the enemy!" << "\n";
+				enemyHealth = enemyHealth - 20;
+				std::cout << "Enemy health is now : " << enemyHealth;
+				encounter();
+				break;
+			case 3 : 
+				std::cout << "You attempt to dodge!" << "\n";
+				std::cout << "Enemy health is now : " << enemyHealth;
+				encounter();
+				break;
+			}
+			}
+		}
+	}
+};
+
+int main()
+{
+	//Character myObj;
+	//myObj.characterCreation();
+	//Character example(Character.name, 20 , 50, "Liam", "Ranger", true);
+	//Character.characterCreation();
+	//Liam.printOut();
+
+	Character Liam(5, 8, 100, "Fred", "Ranger", true);
+	Liam.characterCreation();
+	Liam.printOut();
+	Liam.encounter();
+}
