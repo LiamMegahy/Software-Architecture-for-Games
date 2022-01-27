@@ -2,18 +2,27 @@
 #include <string>
 
 class Character {
+	//Class for the storage and utailization of different methods and global variables
 private:
 	int strength;
 	int agility;
-	float HP;
+	int HP;
 	std::string name;
 	std::string characterClass;
+	//The std::string is required to allow for the functionality 
 	bool isAlive;
 	int damageTaken;
 	int enemyHealth = 100;
 	int selection{};
+	int enemyDamage;
+	std::string enemyName;
+	std::string enemyWeapon;
+	int dodgeChance = 20;
+	bool dodge = false;
+	int attackType = 0;
+	int difficultyModifier = 1;
 public:
-	Character(int s, int a, float h, std::string n, std::string cc, bool live) {
+	Character(int s, int a, int h, std::string n, std::string cc, bool live) {
 		strength = s;
 		agility = a;
 		HP = h;
@@ -24,10 +33,12 @@ public:
 	void printOut() {
 		std::cout << "Strength : " << strength << "\n" << "Agilty : " << agility << "\n" << "Health Points : " << HP << "\n" << "Characters Name : " << name << "\n" << "Class : " << characterClass << "\n";
 		if (HP > 0) {
-			std::cout << "Is Alive" << "\n";
+			std::cout << "Is Alive" << "\n" << "\n";
+			isAlive = true;
 		}
 		else {
-			std::cout << "Is Dead" << "\n";
+			std::cout << "Is Dead" << "\n" << "\n";
+			isAlive = false;
 		}
 	}
 	void characterCreation() {
@@ -49,39 +60,183 @@ public:
 		std::cout << "\n";
 	}
 	void enemyType() {
-		std::string enemyName = "bandit";
-		bool enemyAlive = true;
-		
-	}
-	void encounter() {
-		std::cout << "You are approached by a bandit, prepare to fight!" << "\n";
-		std::cout << "1 - Stab" << "\n" << "2 - Swing" << "\n" << "3 - Dodge" << "\n";
-		std::cin >> selection;
-		while (std::cin) {
-			switch (selection) {
-			case 1:
-				std::cout << "You thrust your sword at the enemy!" << "\n";
-				enemyHealth = enemyHealth - 10;
-				std::cout << "Enemy health is now : " << enemyHealth;
-				encounter();
-				break;
-			case 2 :
-				std::cout << "You deliver a mighty swing at the enemy!" << "\n";
-				enemyHealth = enemyHealth - 20;
-				std::cout << "Enemy health is now : " << enemyHealth;
-				encounter();
-				break;
-			case 3 : 
-				std::cout << "You attempt to dodge!" << "\n";
-				std::cout << "Enemy health is now : " << enemyHealth;
-				encounter();
-				break;
-			}
-			}
+		if (difficultyModifier == 1) {
+			enemyName = "Bandit";
+			enemyWeapon = "Mace";
+		}
+		else if (difficultyModifier == 2) {
+			enemyName = "Knight";
+			enemyWeapon = "Longsword";
+		}
+		else if (difficultyModifier == 3) {
+			enemyName = "King";
+			enemyWeapon = "Big Bloody Sword";
+		}
+		else {
+			enemyName = "Dragon";
+			enemyWeapon = "Giant Claws";
 		}
 	}
-};
+	void dodgeResults() {
+		dodge = false;
+		int accuracy;
+		int localDodge = dodgeChance;
+		if (attackType == 1) {
+			accuracy = (rand() % 50) + 2;
+		}
+		else if (attackType == 2) {
+			accuracy = (rand() % 60) + 2;
+		}
+		else {
+			accuracy = (rand() % 40) + 2;
+		}
 
+		if (dodgeChance > accuracy) {
+			dodge = true;
+			dodgeChance = 20;
+			enemyAttack();
+		}
+		else {
+			dodge = false;
+			enemyAttack();
+		}
+	}
+	void enemyAttack() {
+		enemyType();
+		int randomAttack1 = (rand() % 3) + 1;
+		if (randomAttack1 == 1) {
+			attackType = 1;
+			std::cout << "The enemy " << enemyName <<  " rushes you, attempting to hit you with a " << enemyWeapon << "!" << "\n";
+			int randomAttackDamage1 = (rand() % 5) + 2;
+			if (dodge == true) {
+				dodge == false;
+				std::cout << "The enemy " << enemyWeapon << " misses you, as you roll out of harms way!" << "\n";
+			}
+			else {
+				HP = HP - (randomAttackDamage1 * difficultyModifier);
+				std::cout << "You take " << (randomAttackDamage1 * difficultyModifier) << " damage, and are now at : " << HP << " health!" << "\n";
+				attackType = 1;
+			}
+		}
+		else if (randomAttack1 == 2) {
+			attackType = 2;
+			std::cout << "The enemy " << enemyName <<  " delivers a series of rapid attacks!" << "\n";
+			int randomAttackDamage2 = (rand() % 2) + 2;
+			if (dodge == true){
+				dodge == false;
+				std::cout << "You dodge a flurry of attacks, and come out unharmed!" << "\n";
+			}
+			else {
+				HP = HP - ((randomAttackDamage2 * 2)*difficultyModifier);
+				std::cout << "You take " << ((randomAttackDamage2 * 2) * difficultyModifier) << " damage, and are now at : " << HP << " health!" << "\n";
+				attackType = 2;
+			}
+		}
+		else if (randomAttack1 == 3) {
+			attackType = 3;
+			std::cout << "The enemy " << enemyName << " attempts to delivers a critical blow to your skull!" << "\n";
+			int randomAttackDamage3 = (rand() % 10) + 2;
+			if (dodge == true){
+				dodge == false;
+				std::cout << "The " << enemyName << " throws a slow attack, you easilly dodge!!" << "\n";
+			}
+			else {
+				HP = HP - ((randomAttackDamage3 * 3) * difficultyModifier);
+				std::cout << "You take " << ((randomAttackDamage3 * 3) * difficultyModifier) << " damage, and are now at : " << HP << " health!" << "\n";
+				attackType = 3;
+			}
+		}
+		else {
+			std::cout << "The enemy" << enemyName << "swings, but barely misses you!" << "\n";
+			attackType = 0;
+		}
+	}
+	void encounter() {
+		enemyType();
+		int randomAttackDamage4 = 0;
+		int randomAttackDamage5 = 0;
+		dodge = false;
+		std::cout << "You are approached by a " << enemyName << ", prepare to fight!" << "\n" << "\n";
+		std::cout << "1 - Stab" << "\n" << "2 - Swing" << "\n" << "3 - Dodge" << "\n" << "\n";
+		std::cin >> selection;
+		while (std::cin) {
+			if (HP > 0) {
+				if (enemyHealth > 0) {
+					switch (selection) {
+					case 1:
+						std::cout << "You thrust your sword at the enemy " << enemyName << "!" << "\n";
+						randomAttackDamage4 = (rand() % 10) + 4 + strength;
+						enemyHealth = enemyHealth - randomAttackDamage4;
+						std::cout << "\n" << "Enemy health is now : " << enemyHealth << "\n";
+						enemyAttack();
+						encounter();
+						break;
+					case 2:
+						std::cout << "You deliver a mighty swing at the enemy " << enemyName << "!" << "\n";
+						randomAttackDamage5 = (rand() % 20) + 6 + strength;
+						enemyHealth = enemyHealth - randomAttackDamage5;
+						std::cout << "Enemy health is now : " << enemyHealth << "\n";
+						enemyAttack();
+						encounter();
+						break;
+					case 3:
+						std::cout << "You attempt to dodge!" << "\n";
+						dodgeChance = dodgeChance + (rand() % 40);
+						dodgeResults();
+						encounter();
+						break;
+					}
+				}
+				else {
+					bool done = false;
+					do {
+						std::cout << "The enemy " << enemyName << " has been slain!" << "\n";
+						std::cout << "Would you like to fight again?" << "\n" << "1 - Yes" << "\n" << "2 - No" << "\n";
+						std::cin >> selection;
+						switch (selection) {
+						case 1:
+							enemyHealth = 100;
+							HP = 100;
+							difficultyModifier = difficultyModifier + 1;
+							encounter();
+						case 2:
+							break;
+							exit(1);
+						default:
+							std::cout << "Please select one of the two options" << "\n";
+							break;
+						}
+					} while (!done);
+					exit(1);
+					break;
+				}
+			}
+			else {
+				bool done = false;
+				do {
+					std::cout << "You have been slain!" << "\n";
+					std::cout << "Would you like to try again?" << "\n" << "1 - Yes" << "\n" << "2 - No" << "\n";
+					std::cin >> selection;
+					switch (selection) {
+					case 1:
+						done = true;
+						characterCreation();
+					case 2:
+						done = true;
+						break;
+						exit(1);
+					default:
+						std::cout << "Please select one of the two options" << "\n";
+					}
+				}
+				while (!done);
+			}
+
+		}
+	} 
+	;
+}
+;
 int main()
 {
 	//Character myObj;
