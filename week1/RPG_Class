@@ -1,6 +1,3 @@
-#include <iostream>
-#include <string>
-
 class Character {
 private:
 	int strength;
@@ -18,38 +15,21 @@ public:
 		characterClass = cc;
 		isAlive = live;
 	};
-	void printOut(){
-		std::cout << strength, agility, 
+	void printOut() {
+		std::cout << strength << "\n" << agility << "\n" << HP << "\n" << name << "\n" << characterClass << "\n";
+		if (isAlive = true) {
+			std::cout << "Is Alive" << "\n";
+		}
+		else {
+			std::cout << "Is Dead" << "\n";
+		}
 	}
 };
 
 int main()
 {
-	Character Liam(5, 2, 50, "Liam", "Autist", true);
 
-	std::cout << "Please input your characters first name : " << "\n";
-	std::cin >> name;
-
-	std::cout << "Please input your character class : " << "\n";
-	std::cin >> characterClass;
-
-	std::cout << "Please input your characters strength stat - between 1 and 10" << "\n";
-	std::cin >> strength;
-
-	std::cout << "Please input your characters agility - between 1 and 10" << "\n";
-	std::cin >> agility;
-
-	std::cout << "Please input your characters HP - between 1 and 100" << "\n";
-	std::cin >> HP;
-
-	if (agility < 1 || agility > 10 || strength < 1 || strength > 10) {
-		std::cout << "Please try again, and input valid player stats";
-	}
-
-	if (HP = 0) {
-		std::cout << "Lmao you're dead";
-	}
-
-
+	Character Liam(5, 2, 50, "Liam", "Ranger", true);
+	Liam.printOut();
 
 }
