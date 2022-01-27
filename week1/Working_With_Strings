@@ -1,0 +1,16 @@
+#include <string>
+
+std::string firstName = "";
+	std::string familyName = "";
+	std::string callSign = "";
+
+	std::cout << "Please input your firstname : " << "\n";
+	std::cin >> firstName;
+
+	std::cout << "Please input your family name : " << "\n";
+	std::cin >> familyName;
+
+	std::cout << "Please input your call sign : " << "\n";
+	std::cin >> callSign; 
+
+	std::cout << "Incoming transmission to : " << firstName << " \"" << callSign << "\" " << familyName << "\n";
