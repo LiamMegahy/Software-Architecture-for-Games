@@ -1,9 +1,6 @@
-// ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 
-double multiplyByFive(double number) {
+double multiplyByFive(double& number) {
     number = number * 5;
     std::cout << "Number in function is = " << number << "\n";
     return number;
