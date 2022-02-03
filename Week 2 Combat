@@ -1,0 +1,71 @@
+//Main.cpp code
+#include <iostream>
+#include "Monster.h"
+int main()
+{
+    Monster Dragon(10, 100, "Dragon", 10, 12);
+    Monster Zombie(6, 50, "Zombie", 2, 6);
+
+    std::cout << Dragon.getStrength();
+
+    while (Dragon.gethp() < 0 && Zombie.gethp() < 0) {
+
+    }
+}
+
+
+
+//Monster.h Code
+#pragma once
+#include <iostream>
+#include <string>
+class Monster
+{
+private:
+    int hitpoints;
+    int strength;
+    std::string name;
+    int damageResistance;
+    int attackDamage;
+public:
+    Monster(int strength, int hitpoints, std::string name, int damageResistance, int attackDamage);
+    int gethp() const;
+    int getStrength() const;
+    std::string getName() const;
+    int getDR() const;
+    int getAttackDamage() const;
+};
+
+//Monster.cpp code
+#include "Monster.h"
+#include <iostream>
+#include <string>
+
+int Monster::gethp() const
+{
+    return this->hitpoints;
+}
+
+int Monster::getStrength() const{
+    return this->strength;
+}
+
+std::string Monster::getName() const {
+    return this->name;
+}
+
+int Monster::getDR() const {
+    return this->damageResistance;
+}
+
+int Monster::getAttackDamage() const {
+    return this->attackDamage;
+}
+
+Monster::Monster(int strength, int hitpoints, std::string name, int damageResistance, int attackDamage) {
+    this->strength = strength;
+    this->hitpoints = hitpoints;
+    this->name = name;
+    this->damageResistance = damageResistance;
+    this->attackDamage = attackDamage;
+}
