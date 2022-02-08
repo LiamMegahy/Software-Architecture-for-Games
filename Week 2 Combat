@@ -1,21 +1,57 @@
-//Main.cpp code
+// Main .CPP file
 #include <iostream>
 #include "Monster.h"
-int main()
-{
-    Monster Dragon(10, 100, "Dragon", 10, 12);
-    Monster Zombie(6, 50, "Zombie", 2, 6);
 
-    std::cout << Dragon.getStrength();
+void combat(Monster& monster1, Monster& monster2) {
+    while (monster1.gethp() > 0 && monster2.gethp() > 0) {
+        int monster1Attack = (monster1.getStrength() + monster1.getAttackDamage() - monster2.getDR());
+        int monster2Attack = (monster2.getStrength() + monster2.getAttackDamage() - monster1.getDR());
 
-    while (Dragon.gethp() < 0 && Zombie.gethp() < 0) {
+        std::cout << monster1.getName() << " attacks the " << monster2.getName() << " for a total of " << monster1Attack << " damage " << "\n";
+        monster2.setHealth(monster2.gethp() - monster1Attack);
+        std::cout << monster2.getName() << " now has " << monster2.gethp() << " remaining" << "\n";
 
+        std::cout << monster2.getName() << " attacks the " << monster1.getName() << " for a total of " << monster2Attack << " damage " << "\n";
+        monster1.setHealth(monster1.gethp() - monster2Attack);
+        std::cout << monster1.getName() << " now has " << monster1.gethp() << " remaining" << "\n";
     }
 }
 
+void endCombat(Monster& monster1, Monster& monster2) {
+    if (monster1.gethp() <= 0) {
+        monster1.setAlive(false);
+        std::cout << monster1.getName() << " has been killed by " << monster2.getName();
+    }
+    else if (monster2.gethp() <= 0) {
+        monster2.setAlive(false);
+        std::cout << monster2.getName() << " has been killed by " << monster1.getName();
+    }
+    else {
+        monster1.setAlive(false);
+        monster2.setAlive(false);
+        std::cout << monster1.getName() << " and " << monster2.getName() << " have both been slain!";
+    }
+}
 
+void groupExplosion() {
 
-//Monster.h Code
+}
+
+int main(){
+    Monster Dragon(10, 100, "Dragon", 10, 12, 10, true);
+    Monster Zombie(6, 50, "Zombie", 2, 6, 10, true);
+    Monster Bat(2, 10, "Bat", 10, 2, 2, true);
+    Monster Human(6, 50, "Human", 8, 6, 10, true);
+    Monster Windego(10, 100, "Windego", 10, 12, 10, true);
+    Monster Frankie(6, 50, "Frankie", 20, 20, 20, true);
+
+    Monster mobs[5];
+    
+    combat(Zombie, Dragon);
+    endCombat(Zombie, Dragon);
+}
+
+// Monster .H
 #pragma once
 #include <iostream>
 #include <string>
@@ -27,16 +63,26 @@ private:
     std::string name;
     int damageResistance;
     int attackDamage;
+    int totalDamage;
+    bool alive;
 public:
-    Monster(int strength, int hitpoints, std::string name, int damageResistance, int attackDamage);
+    Monster(int strength, int hitpoints, std::string name, int damageResistance, int attackDamage, int totalDamage, bool alive);
+    Monster() {
+        int strength;
+        int hitpoints;
+    };
     int gethp() const;
     int getStrength() const;
     std::string getName() const;
     int getDR() const;
     int getAttackDamage() const;
+    int getTotalDamage() const;
+    bool getAlive() const;
+    int setHealth(int hp);
+    bool setAlive(bool living);
 };
 
-//Monster.cpp code
+// Monster.CPP
 #include "Monster.h"
 #include <iostream>
 #include <string>
@@ -46,7 +92,7 @@ int Monster::gethp() const
     return this->hitpoints;
 }
 
-int Monster::getStrength() const{
+int Monster::getStrength() const {
     return this->strength;
 }
 
@@ -62,10 +108,28 @@ int Monster::getAttackDamage() const {
     return this->attackDamage;
 }
 
-Monster::Monster(int strength, int hitpoints, std::string name, int damageResistance, int attackDamage) {
+int Monster::getTotalDamage() const {
+    return this->totalDamage;
+}
+
+int Monster::setHealth(int hp) {
+    return hitpoints = hp;
+}
+
+bool Monster::getAlive() const {
+    return this->alive;
+}
+
+bool Monster::setAlive(bool living) {
+    return alive = living;
+}
+
+Monster::Monster(int strength, int hitpoints, std::string name, int damageResistance, int attackDamage, int totalDamage, bool alive) {
     this->strength = strength;
     this->hitpoints = hitpoints;
     this->name = name;
     this->damageResistance = damageResistance;
     this->attackDamage = attackDamage;
+    this->totalDamage = totalDamage;
+    this->alive = alive;
 }
