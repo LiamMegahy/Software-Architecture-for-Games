@@ -1,0 +1,141 @@
+//Main CPP file
+#include <iostream>
+#include "Monster.h"
+
+void combat(Monster* pMonster, Monster* pMonster2) {
+    while (pMonster->gethp() > 0 && pMonster2->gethp() > 0) {
+        int monster1Attack = (pMonster->getStrength() + pMonster->getAttackDamage()) - pMonster2->getDR();
+        int monster2Attack = (pMonster2->getStrength() + pMonster2->getAttackDamage() - pMonster->getDR());
+
+        std::cout << pMonster->getName() << " attacks the " << pMonster2->getName() << " for a total of " << monster1Attack << " damage " << "\n";
+        pMonster2->setHealth(pMonster2->gethp() - monster1Attack);
+        std::cout << pMonster2->getName() << " now has " << pMonster2->gethp() << " remaining" << "\n";
+
+        std::cout << pMonster2->getName() << " attacks the " << pMonster->getName() << " for a total of " << monster2Attack << " damage " << "\n";
+        pMonster->setHealth(pMonster->gethp() - monster2Attack);
+        std::cout << pMonster->getName() << " now has " << pMonster->gethp() << " remaining" << "\n";
+    }
+}
+
+void endCombat(Monster* pMonster, Monster* pMonster2) {
+    if (pMonster->gethp() <= 0) {
+        pMonster->setAlive(false);
+        std::cout << pMonster->getName() << " has been killed by " << pMonster2->getName();
+    }
+    else if (pMonster2->gethp() <= 0) {
+        pMonster2->setAlive(false);
+        std::cout << pMonster2->getName() << " has been killed by " << pMonster->getName();
+    }
+    else {
+        pMonster->setAlive(false);
+        pMonster2->setAlive(false);
+        std::cout << pMonster->getName() << " and " << pMonster2->getName() << " have both been slain!";
+    }
+}
+
+int main() {
+    Monster Dragon(10, 100, "Dragon", 10, 12, 10, true);
+    Monster Zombie(6, 50, "Zombie", 2, 6, 10, true);
+    Monster Bat(2, 10, "Bat", 10, 2, 2, true);
+    Monster Human(6, 50, "Human", 8, 6, 10, true);
+
+    Monster* pMonster = nullptr;
+    pMonster = new Monster(6, 500, "Frankie", 20, 20, 20, true);
+    Monster* pMonster2 = nullptr;
+    pMonster2 = new Monster(10, 100, "Windego", 10, 12, 10, true);
+    if (!pMonster || !pMonster2) {
+        std::cout << "Issue with memory allocation for pMonster pointer";
+    }
+    //std::cout << pMonster->gethp();
+
+ 
+    combat(pMonster, pMonster2);
+    endCombat(pMonster, pMonster2);
+    delete pMonster;
+    delete pMonster2;
+    pMonster = nullptr;
+    pMonster2 = nullptr;
+}
+
+// Monster .H
+#pragma once
+#include <iostream>
+#include <string>
+class Monster
+{
+private:
+    int hitpoints;
+    int strength;
+    std::string name;
+    int damageResistance;
+    int attackDamage;
+    int totalDamage;
+    bool alive;
+public:
+    Monster(int strength, int hitpoints, std::string name, int damageResistance, int attackDamage, int totalDamage, bool alive);
+    Monster() {
+        int strength;
+        int hitpoints;
+    };
+    int gethp() const;
+    int getStrength() const;
+    std::string getName() const;
+    int getDR() const;
+    int getAttackDamage() const;
+    int getTotalDamage() const;
+    bool getAlive() const;
+    int setHealth(int hp);
+    bool setAlive(bool living);
+};
+
+// Monster.CPP
+#include "Monster.h"
+#include <iostream>
+#include <string>
+
+int Monster::gethp() const
+{
+    return this->hitpoints;
+}
+
+int Monster::getStrength() const {
+    return this->strength;
+}
+
+std::string Monster::getName() const {
+    return this->name;
+}
+
+int Monster::getDR() const {
+    return this->damageResistance;
+}
+
+int Monster::getAttackDamage() const {
+    return this->attackDamage;
+}
+
+int Monster::getTotalDamage() const {
+    return this->totalDamage;
+}
+
+int Monster::setHealth(int hp) {
+    return hitpoints = hp;
+}
+
+bool Monster::getAlive() const {
+    return this->alive;
+}
+
+bool Monster::setAlive(bool living) {
+    return alive = living;
+}
+
+Monster::Monster(int strength, int hitpoints, std::string name, int damageResistance, int attackDamage, int totalDamage, bool alive) {
+    this->strength = strength;
+    this->hitpoints = hitpoints;
+    this->name = name;
+    this->damageResistance = damageResistance;
+    this->attackDamage = attackDamage;
+    this->totalDamage = totalDamage;
+    this->alive = alive;
+}
