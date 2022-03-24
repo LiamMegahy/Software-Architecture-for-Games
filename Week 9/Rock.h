@@ -1,0 +1,18 @@
+#pragma once
+#include "mydrawengine.h"
+#include "GameObject.h"
+#include "SubRock.h"
+#include "ObjectManager.h"
+#include "Explosion.h"
+class Rock : public GameObject {
+public:
+	Rock(ObjectManager& TheObjectManager);
+	ObjectManager& om;
+	void Initialise(Vector2D location, float angle);
+	void update();
+	IShape2D& GetShape();
+	void ProcessCollision(GameObject* object, Vector2D location, float angle) override;
+	Vector2D m_velocity;
+	Circle2D m_collisionShape;
+	Vector2D Velocity;
+};
